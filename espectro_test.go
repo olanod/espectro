@@ -3,6 +3,7 @@ package espectro
 import (
 	"testing"
 	"math"
+	"bytes"
 )
 
 func TestProcessSignal(t *testing.T) {
@@ -99,3 +100,22 @@ func TestAverage(t *testing.T) {
 	}
 }
 
+func TestSignalFromBytes(t *testing.T) {
+	for _, tt := range []struct {
+		rawData []byte
+		signal  Signal
+	}{
+		{
+			[]byte{0x00, 0x00, 0xFF, 0x7F, 0x00, 0x80}, // little-endian 0,32767,-32768
+			Signal{0, math.MaxInt16, math.MinInt16},
+		},
+	} {
+		signal := signalFromBytes(bytes.NewBuffer(tt.rawData))
+		for i, samp := range signal {
+			if samp != tt.signal[i] {
+				t.Errorf("wanted %f, got %f", tt.signal[i], samp)
+				break
+			}
+		}
+	}
+}

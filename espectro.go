@@ -6,6 +6,8 @@ import (
 	"github.com/olanod/espectro/fft"
 	"time"
 	"errors"
+	"encoding/binary"
+	"bytes"
 )
 
 type Signal []float64
@@ -17,6 +19,19 @@ type Spectrum []float64
 func Process(rate int, chunkTime time.Duration, n uint) (err error) {
 	// TODO
 	return nil
+}
+
+func signalFromBytes(buf *bytes.Buffer) (signal Signal) {
+	sample := make([]byte, 2)
+	for {
+		n, _ := buf.Read(sample)
+		if n == 0 {
+			return
+		}
+		// TODO convert to float in -1,1 range
+		val := float64(int16(binary.LittleEndian.Uint16(sample)))
+		signal = append(signal, val)
+	}
 }
 
 func processSignal(x Signal) (Spectrum, error) {
