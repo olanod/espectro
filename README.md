@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/olanod/espectro/badge.svg?branch=master)](https://coveralls.io/github/olanod/espectro?branch=master)
+
 espectro
 ========
 
