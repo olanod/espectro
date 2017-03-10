@@ -2,3 +2,4 @@
 espectro.iml
 bin/
 *.out
+vendor/
