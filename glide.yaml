@@ -1,5 +1,0 @@
-package: github.com/olanod/espectro
-import:
-- package: github.com/mjibson/go-dsp
-  subpackages:
-  - fft

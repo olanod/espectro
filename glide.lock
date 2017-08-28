@@ -1,8 +1,0 @@
-hash: 327e154c8d93f32b81b29ed9a1837186d4d6a713134e24e7299ad649e2faad7b
-updated: 2017-03-10T00:45:37.028593978+01:00
-imports:
-- name: github.com/mjibson/go-dsp
-  version: 49dba83727078f13a0e99553e0f8140990115ac9
-  subpackages:
-  - fft
-testImports: []

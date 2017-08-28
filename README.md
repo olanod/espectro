@@ -8,7 +8,7 @@ The idea is to have a simple unix like utility that you can pipe raw audio data 
 
 Dependencies
 ------------
-Use glide to install the dependencies: `glide install`
+Use [dep](https://github.com/golang/dep) to install the dependencies: `dep ensure`
 
 Usage
 -----

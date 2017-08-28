@@ -1,13 +1,14 @@
 package espectro
 
 import (
+	"bytes"
+	"encoding/binary"
+	"fmt"
+	"io"
 	"math"
 	"math/cmplx"
 	"time"
-	"encoding/binary"
-	"bytes"
-	"io"
-	"fmt"
+
 	"github.com/mjibson/go-dsp/fft"
 )
 
@@ -52,7 +53,7 @@ func signalFromBytes(data []byte) (signal Signal) {
 func processSignal(x Signal) Spectrum {
 	spectrum := Spectrum{}
 	X := fft.FFTReal(x)
-	for i, lX := 0, len(X) / 2; i < lX; i++ {
+	for i, lX := 0, len(X)/2; i < lX; i++ {
 		spectrum = append(spectrum, cmplx.Abs(X[i]))
 	}
 	return spectrum
@@ -66,9 +67,9 @@ func average(in Spectrum, parts int) []float64 {
 	inLength := len(in)
 	chunkSize := int(math.Floor(float64(inLength / parts)))
 	for i, sum := 1, 0.0; i <= inLength; i++ {
-		sum += in[i - 1]
-		if i % chunkSize == 0 {
-			out = append(out, sum / float64(chunkSize))
+		sum += in[i-1]
+		if i%chunkSize == 0 {
+			out = append(out, sum/float64(chunkSize))
 			sum = 0.0
 		}
 	}

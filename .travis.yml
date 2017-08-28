@@ -1,3 +1,13 @@
 language: go
-before_install: mkdir $GOPATH/bin && curl https://glide.sh/get | sh
-install: glide install
+before_install: go get -u github.com/golang/dep/cmd/dep
+install: dep ensure
+
+before_deploy: ver=$TRAVIS_TAG make dist
+deploy:
+  - provider: releases
+    api_key: $GH_API_KEY
+    file_glob: true
+    file: dist/*
+    skip_cleanup: true
+    on:
+      tags: true
